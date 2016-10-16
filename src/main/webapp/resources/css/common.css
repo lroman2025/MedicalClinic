@@ -1,0 +1,49 @@
+/* Effects that can be used below, are presented on this site: http://daneden.github.io/animate.css/  */
+
+.alert-frame.ng-enter {
+	-webkit-animation: fadeIn 1s;
+	-moz-animation: fadeIn 1s;
+	-ms-animation: fadeIn 1s;
+	animation: fadeIn 1s;
+}
+
+.alert-frame.ng-leave {
+	-webkit-animation: fadeOut 1s;
+	-moz-animation: fadeOut 1s;
+	-ms-animation: fadeOut 1s;
+	animation: fadeOut 1s;
+}
+
+.alert {
+	width: 350px;
+	margin-left: -175px;
+	text-align: center;
+}
+
+.alert-container {
+	position: fixed;
+	z-index: 2000;
+	left: 50%;
+}
+
+li.menuitem {
+	display: block;
+	padding: 3px 20px;
+	clear: both;
+	font-weight: normal;
+	line-height: 1.428571429;
+	color: #333;
+	white-space: nowrap;
+	cursor: pointer;
+}
+
+.progress {
+    position: relative;
+}
+
+.progress span {
+    position: absolute;
+    display: block;
+    width: 100%;
+    color: black;
+ }

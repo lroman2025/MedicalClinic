@@ -1,0 +1,111 @@
+<script type="text/ng-template" id="hours.html">
+	<div class="modal-header">
+			<h3 class="modal-title">Evailable hours</h3>
+	</div>
+	<div class="modal-body">
+		<form class="form-horizontal" name="hourForm"  novalidate>
+			<table id="scheduleTable"
+						class="table table-bordered table-stripped">
+				<tr ng-repeat="h in hourList">
+					<td>{{h.begin | date : 'HH:mm' }}</td>
+					<td>{{h.finish | date : 'HH:mm' }}</td>
+					<td>
+						<div class="button-group" >
+							<button class="btn btn-primary" ng-click="addToCalendar(h)" ng-disabled="!h.available">Register</button>
+						</div>
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button type="button" class="btn btn-warning" ng-click="cancel()">Cancel</button>
+	</div>
+</script>
+<div id="page-wrapper">
+	<div class="alert-container">
+		<alert class="alert-frame" ng-repeat="alert in alerts"
+			type="{{alert.type}}" close="alertService.closeAlert($index)">{{alert.msg}}</alert>
+	</div>
+	<h3>Register patient to doctor visit</h3>
+	<br> <br>
+	<div class="row">
+		<div class="col-lg-6 {{param}}">
+			<div class="col-lg-12 well">
+				<div class="content-header">
+					<h4>
+						<strong>Select patient for registering to doctor visit</strong>
+					</h4>
+				</div>
+				<br>
+				<lable class="form-lable col-lg-2" for="patient"> <strong>Patient</strong></lable>
+				<div class="col-lg-8">
+					<select class="form-control" ng-model="patient"
+						ng-options="s.userData.lastname + ' ' + s.userData.firstname for s in patientList"></select>
+				</div>
+			</div>
+			<div class="col-lg-12 well">
+				<div class="content-header">
+					<h4>
+						<strong>Our doctors</strong>
+					</h4>
+				</div>
+				<div>
+					<div ng-repeat="d in doctorList" class="message-preview">
+						<br>
+						<div class="col-lg-7">
+							<h5>
+								<strong>{{d.userData.firstname}}
+									{{d.userData.lastname}}</strong>
+							</h5>
+						</div>
+						<div class="col-lg-5">
+							<button class="btn btn-primary" ng-click="getDoctorsSchedule(d); getCalendarByDoctor(d.userData.pesel)">Choose
+								the doctor</button>
+						</div>
+						<br> <br>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-6 col-lg-offset-1 well" ng-show="display">
+			<div ng-show="!scheduleList.length">
+				<h4>Doctor {{firstname}} {{lastname}} has no available hours in
+					schedule</h4>
+			</div>
+			<div ng-show="!patient">
+				<h4>You didn't select patient</h4>
+			</div>
+			<div ng-show="scheduleList.length && patient">
+				<div class="content-header">
+					<h4>Schedule of {{firstname}} {{lastname}}</h4>
+				</div>
+				<div>
+					<table id="scheduleTable"
+						class="table table-bordered table-stripped">
+						<tr class="header">
+							<th>#</th>
+							<th>Day</th>
+							<th>Hour start</th>
+							<th>Hour stop</th>
+							<th>Action</th>
+						</tr>
+						<tbody ng-repeat="s in scheduleList">
+							<tr>
+								<td>{{ $index + 1 }}</td>
+								<td>{{ s.day | date : 'dd-MM-yyyy'}}</td>
+								<td>{{ s.hourStart }}</td>
+								<td>{{ s.hourEnd }}</td>
+								<td>
+									<div class="button-group">
+										<button ng-click="showHours(s)" type="button"
+											class="btn btn-primary">Available hours</button>
+									</div>
+								</td>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

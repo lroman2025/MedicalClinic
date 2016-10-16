@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<PROCESS model-entity="JSFProcess">
+ <PROCESS-ITEM NAME="rules:#views#index.xhtml" PATH="/views/index.xhtml"
+  SHAPE="32,17,0,0" model-entity="JSFProcessGroup">
+  <PROCESS-ITEM ID="rules:#views#index.xhtml:0" NAME="item"
+   PATH="/views/index.xhtml" model-entity="JSFProcessItem">
+   <PROCESS-ITEM-OUTPUT
+    ID="schedule:#{navigationController.processSchedule}:#views#schedule.xhtml"
+    NAME="output" PATH="/views/schedule.xhtml"
+    TARGET="rules:#views#schedule.xhtml"
+    TITLE="#{navigationController.processSchedule}:schedule" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="index:#{navigationController.processIndex}:#" NAME="output1"
+    PATH="/" TARGET="rules:#"
+    TITLE="#{navigationController.processIndex}:index" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="calendar:#{navigationController.processCalendar}:#views#calendar.xhtml"
+    NAME="output2" PATH="/views/calendar.xhtml"
+    TARGET="rules:#views#calendar.xhtml"
+    TITLE="#{navigationController.processCalendar}:calendar" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="description:#{navigationController.processDescription}:#views#description.xhtml"
+    NAME="output3" PATH="/views/description.xhtml"
+    TARGET="rules:#views#description.xhtml"
+    TITLE="#{navigationController.processDescription}:description" model-entity="JSFProcessItemOutput"/>
+   <PROCESS-ITEM-OUTPUT
+    ID="doctor:#{navigationController.processDoctor}:#views#doctor.xhtml"
+    NAME="output4" PATH="/views/doctor.xhtml"
+    TARGET="rules:#views#doctor.xhtml"
+    TITLE="#{navigationController.processDoctor}:doctor" model-entity="JSFProcessItemOutput"/>
+  </PROCESS-ITEM>
+ </PROCESS-ITEM>
+ <PROCESS-ITEM NAME="rules:#views#schedule.xhtml"
+  PATH="/views/schedule.xhtml" SHAPE="288,33,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#description.xhtml"
+  PATH="/views/description.xhtml" SHAPE="288,465,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#calendar.xhtml"
+  PATH="/views/calendar.xhtml" SHAPE="288,353,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#" PATH="/" SHAPE="288,241,0,0" model-entity="JSFProcessGroup"/>
+ <PROCESS-ITEM NAME="rules:#views#doctor.xhtml"
+  PATH="/views/doctor.xhtml" SHAPE="304,273,0,0" model-entity="JSFProcessGroup"/>
+</PROCESS>

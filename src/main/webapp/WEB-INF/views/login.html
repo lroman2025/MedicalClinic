@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html ng-app="indexApp">
+<head>
+<link href="resources/css/bootstrap.css" rel="stylesheet">
+<link href="resources/css/animate.css" rel="stylesheet">
+<link href="resources/css/custom.css" rel="stylesheet">
+
+<!-- AngularJS XEditable CSS -->
+<link href="resources/css/xeditable.css" rel="stylesheet">
+
+<!-- Add custom CSS here -->
+<link href="resources/css/table.css" rel="stylesheet">
+<link href="resources/css/sb-admin.css" rel="stylesheet">
+<link href="resources/css/common.css" rel="stylesheet">
+<link href="resources/css/user.css" rel="stylesheet">
+<link href="resources/css/valid.css" rel="stylesheet">
+<link rel="stylesheet"
+	href="resources/font-awesome/css/font-awesome.min.css">
+</head>
+
+<body ng-controller="RegisterController">
+	<div class="alert-container">
+		<alert class="alert-frame" ng-repeat="alert in alerts"
+			type="{{alert.type}}" close="alertService.closeAlert($index)">{{alert.msg}}</alert>
+	</div>
+	<script type="text/ng-template" id="registerModalContent.html">
+		<div class="modal-header">
+			<h3 class="modal-title">Register</h3>
+		</div>
+		<form class="form-horizontal" name="regForm"  novalidate ng-submit="ok()" >
+			<div class="modal-body">				
+
+				<!-- Firstname form-->
+				<div class="form-group">
+					<label class="form-label col-sm-3" for="username">First name</label>
+					<div class="col-sm-9">
+						<input class="form-control" type="text" name="firstname" id="firstname" placeholder="Firstname"
+								ng-model="newUser.firstname" ensure-unique="firstname" required/>
+						<div class="error-container" ng-show="regForm.firstname.$dirty && regForm.firstname.$invalid">
+    						<small class="error"
+    							ng-show="regForm.firstname.$error.required">
+    							Firstname required
+    						</small>
+						</div>
+					</div>
+				</div>
+
+				<!-- Lastname form -->
+				<div class="form-group">
+					<label class="form-label col-sm-3" for="inputLastname">Last name</label>
+					<div class="col-sm-9">
+						<input class="form-control" type="text" name="lastname" id="inputLastname" placeholder="Lastname"
+								ng-model="newUser.lastname" required/>
+		  				<div class="error-container" ng-show="regForm.lastname.$dirty && regForm.lastname.$invalid">
+      						<small class="error"
+      							ng-show="regForm.lastname.$error.required">
+             					Lastname required
+  							</small>
+    					</div>
+					</div>
+				</div>
+
+				<!-- Address form -->
+				<div class="form-group">
+					<label class="form-label col-sm-3" for="inputAddress">Address</label>
+					<div class="col-sm-9">
+						<input class="form-control" type="text" name="address" id="inputAddress" placeholder="Address"
+								ng-model="newUser.address" required/>
+		  				<div class="error-container" ng-show="regForm.address.$dirty && regForm.address.$invalid">
+      						<small class="error"
+      							ng-show="regForm.address.$error.required">
+             					Address required
+  							</small>
+    					</div>
+					</div>
+				</div>
+
+				<!-- Phone form -->
+				<div class="form-group">
+					<label class="form-label col-sm-3" for="inputPhone">Phone</label>
+					<div class="col-sm-9">
+						<input class="form-control" type="text" name="phone" id="inputPhone" placeholder="Phone"
+								ng-model="newUser.phone" required/>
+		  				<div class="error-container" ng-show="regForm.phone.$dirty && regForm.phone.$invalid">
+      						<small class="error"
+      							ng-show="regForm.phone.$error.required">
+             					Phone required
+  							</small>
+    					</div>
+					</div>
+				</div>
+
+				<!-- Birthday form -->
+				<div class="form-group">
+					<label class="form-label col-sm-3" for="inputBirthday">Birthday</label>
+					<div class="col-sm-9">
+						<input class="form-control" type="date" name="phone" id="inputBirthday" placeholder="Birthday"
+								ng-model="newUser.birthday" required/>
+		  				<div class="error-container" ng-show="regForm.birthday.$dirty && regForm.birthday.$invalid">
+      						<small class="error"
+      							ng-show="regForm.birthday.$error.required">
+             					Birthday required
+  							</small>
+    					</div>
+					</div>
+				</div>
+
+				<!-- Email form -->
+				<div class="form-group">
+					<label class="form-label col-sm-3" for="inputEmail">Email</label>
+					<div class="col-sm-9">
+						<input class="form-control" type="email" name="email" id="email" placeholder="Email"
+								ng-model="newUser.email" ng-minlength=3 ng-maxlength=25 required/>
+				  		<div class="error-container" ng-show="regForm.email.$dirty && regForm.email.$invalid">
+							<small class="error"
+								ng-show="regForm.email.$error.required">
+             					Email required
+      						</small>
+      						<small class="error"
+      							ng-show="regForm.email.$error.email">
+             					That is not a valid email
+							</small>
+    					</div>
+					</div>
+				</div>
+
+				<!-- Pesel form -->
+				<div class="form-group">
+					<label class="form-label col-sm-3" for="inputPesel">Pesel</label>
+					<div class="col-sm-9">
+						<input class="form-control" type="text" name="pesel" id="inputPesel" placeholder="Pesel"
+								ng-model="newUser.pesel" required/>
+		  				<div class="error-container" ng-show="regForm.pesel.$dirty && regForm.pesel.$invalid">
+      						<small class="error"
+      							ng-show="regForm.pesel.$error.required">
+             					Pesel required
+  							</small>
+    					</div>
+					</div>
+				</div>
+				
+				<!-- Password form -->
+				<div class="form-group">
+					<label class="form-label col-sm-3" for="inputPassword">Password</label>
+					<div class="col-md-9">
+						<input class="form-control" type="password" name="password" id="inputPassword"
+								placeholder="Password" ng-model="newUser.password" ng-minlength=3 ng-maxlength=25 required/>
+						<div class="error-container" ng-show="regForm.password.$dirty && regForm.password.$invalid">
+						    <small class="error"
+						    	ng-show="regForm.password.$error.required">
+				             	Password required
+					      	</small>
+					      	<small class="error"
+					      		ng-show="regForm.password.$error.minlength">
+	             	 			Your password is required to be at least 3 characters
+					      	</small>
+	    				</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" ng-click="cancel()">Cancel</button>
+		       		<button type="submit" class="btn btn-success" ng-disabled="regForm.$invalid" >Register</button>
+				</div>
+			</div>
+		</form>
+	</script>
+	<div id="page-wrapper">
+		<div class="row">
+			<div class="col-lg-12">
+				<form class="form-horizontal" name='f'
+					action="j_spring_security_check" method='POST'>
+					<div class="col-md-3 col-md-offset-4 well">
+						<div class="form-group">
+							<h1 class="col-lg-3">Login</h1>
+						</div>
+						<div class="form-group">
+							<lable class="form-lable col-lg-3">Pesel:</lable>
+							<div class="col-lg-9">
+								<input class="form-control" type='text' name='j_username'
+									value=''>
+							</div>
+						</div>
+						<div class="form-group">
+							<lable class="form-lable col-lg-3">Password:</lable>
+							<div class="col-lg-9">
+								<input class="form-control" type='password' name='j_password' />
+							</div>
+						</div>
+						<div class="form-group">
+							<div class="col-lg-9 col-lg-offset-3">
+								<button class="btn btn-success col-lg-6" type="submit"
+									value="submit">Login</button>
+								<input class="btn btn-primary col-lg-5 col-lg-offset-1"
+									value="Register" ng-click="open()" type="button" />
+							</div>
+						</div>
+					</div>
+				</form>
+
+			</div>
+		</div>
+	</div>
+	<!-- jquery -->
+	<script src="resources/js/lib/jquery/jquery-1.11.1.js"></script>
+	<script src="resources/js/lib/jquery/jquery-ui.js"></script>
+
+	<!-- AngularJS -->
+	<script src="resources/js/lib/angular/angular.js"></script>
+	<script src="resources/js/lib/angular/angular-resource.js"></script>
+	<script src="resources/js/lib/angular/angular-route.js"></script>
+	<script src="resources/js/lib/angular/angular-dragdrop.min.js"></script>
+	<script src="resources/js/lib/angular/ui-bootstrap-tpls-0.11.0.js"></script>
+	<script src="resources/js/lib/angular/angular-animate.min.js"></script>
+	<script src="resources/js/lib/angular/angular-cookies.js"></script>
+	<script src="resources/js/lib/angular/ng-context-menu.min.js"></script>
+
+	<!-- bootstrap -->
+	<script src="resources/js/lib/bootstrap/bootstrap.js"></script>
+	<script src="resources/js/lib/bootstrap/bootstrap-slider.js"></script>
+
+	<!-- xeditable -->
+	<script src="resources/js/lib/xeditable.js"></script>
+
+	<!-- AngularJS Controllers -->
+	<script src="resources/js/controllers/index/indexApp.js"></script>
+	<script src="resources/js/controllers/index/RegisterController.js"></script>
+</body>
+</html>

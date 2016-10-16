@@ -1,0 +1,86 @@
+<script type="text/ng-template" id="description.html">
+	<div class="modal-header">
+		<h3 class="modal-title">Visit description</h3>
+	</div>
+	<div class="modal-body">
+		<br>
+		<table class="table table-bordered table-stripped">
+			<tr>
+				<th>Full name</th> 
+				<td>{{description.calendar.patient.userData.lastname}} {{description.calendar.patient.userData.firstname}}</td>
+			</tr>
+	
+			<tr>
+				<th>Email</th>
+				<td>{{description.calendar.patient.userData.email}}</td>
+			</tr>
+			<tr>
+				<th>Phone</th> 
+				<td>{{description.calendar.patient.userData.phone}}</td>
+			</tr>
+			<tr>
+				<th>Doctor comment</th>
+				<td ng-show="!comment">{{description.doctorComment}}</td>
+				<td ng-show="comment">
+					<form name="comForm"><textarea name="docComment" 
+						class="form-control" 
+						rows="7" 
+						columns="2" 
+						type="textarea" 
+						ng-model="description.doctorComment"
+						ng-maxlength=300/>
+					</form>
+					<div class="error-container" ng-show="comForm.docComment.$dirty && comForm.docComment.$invalid">
+					    <small class="error"
+					    	ng-show="comForm.docComment.$error.maxlength">
+	             	 		Your comment cannot be longer then 300 charackters!
+					     </small>
+	    			</div>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-show="!comment" ng-click="comment=1">
+			<div ng-show="!description.doctorComment">Add comment</div>
+			<div ng-show="description.doctorComment">Edit comment</div>
+		</button>
+		<button class="btn btn-success" ng-show="comment" ng-disabled="comForm.docComment.$invalid" ng-click="update(description.doctorComment); comment=0">Save</button>
+		<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+	</div>
+</script>
+<div id="page-wrapper">
+	<div class="alert-container">
+		<alert class="alert-frame" ng-repeat="alert in alerts"
+			type="{{alert.type}}" close="alertService.closeAlert($index)">{{alert.msg}}</alert>
+	</div>
+	<h3>Calendar</h3>
+	<br>
+	<div class="row">
+		<div class="col-lg-10 col-lg-offset-1">
+			<div class="panel panel-default">
+				<table id="calendarTable"
+					class="table table-bordered table-stripped">
+					<tr class="header">
+						<th>#</th>
+						<th>Day and hour of visit</th>
+						<th>Patient</th>
+						<th>Description</th>
+					</tr>
+					<tr ng-repeat="c in calendarList">
+						<td><div class="col-lg-offset-5">{{ $index + 1}}</div></td>
+						<td><div class="col-lg-offset-4">{{ c.date | date:
+								'dd-MM-yyyy HH:mm' }}</div></td>
+						<td><div class="col-lg-offset-4">{{
+								c.patient.userData.firstname }} {{ c.patient.userData.lastname
+								}}</div></td>
+						<td class="col-lg-4"><button
+								class="btn btn-primary col-lg-8 col-lg-offset-2"
+								ng-click="open(c.id)" data-toogle="modal" type="button">Show
+								description</button></td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

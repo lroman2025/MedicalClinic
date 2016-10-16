@@ -1,0 +1,60 @@
+<script type="text/ng-template" id="description.html">
+	<div class="modal-header">
+		<h3 class="modal-title">Visit description</h3>
+	</div>
+	<div class="modal-body">
+		<table class="table table-bordered table-stripped">
+		<tr>
+			<th class="col-lg-5">Last name:</th> 
+			<td>{{description.calendar.patient.userData.lastname}}</td>
+		</tr>
+		<tr>
+			<th>First name:</th>
+			<td>{{description.calendar.patient.userData.firstname}}</td>
+		</tr>
+		<tr>
+			<th>Email:</th>
+			<td>{{description.calendar.patient.userData.email}}</td>
+		</tr>
+		<tr>
+			<th>Phone:</th> 
+			<td>{{description.calendar.patient.userData.phone}}</td>
+		</tr>
+		<tr>
+			<th>Doctor comment:</th>
+			<td>{{description.doctorComment}}</td>
+		</tr>
+		</table>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+	</div>
+</script>
+<div id="page-wrapper">
+	<div class="alert-container">
+		<alert class="alert-frame" ng-repeat="alert in alerts"
+			type="{{alert.type}}" close="alertService.close($index)">{{alert.msg}}</alert>
+	</div>
+	<h3>Visits history</h3>
+	<br>
+	<div class="panel panel-default">
+		<table id="calendarTable" class="table table-bordered table-stripped">
+			<tr class="header">
+				<th>#</th>
+				<th>Day and hour of visit</th>
+				<th>Doctor</th>
+				<th>Actions</th>
+			</tr>
+			<tr ng-repeat="c in calendarList">
+				<td>{{ $index + 1}}</td>
+				<td>{{ c.date | date: 'dd-MM-yyyy HH:mm' }}</td>
+				<td>{{ c.schedule.doctor.userData.firstname }} {{
+					c.schedule.doctor.userData.lastname }}</td>
+				<td><button class="btn btn-primary" ng-click="open(c.id)"
+						data-toogle="modal" type="button">Show description</button>
+					<button class="btn btn-warning" ng-click="cancelReservation(c.id)">Cancel
+						reservation</button></td>
+			</tr>
+		</table>
+	</div>
+</div>

@@ -1,0 +1,232 @@
+<script type="text/ng-template" id="addPatient.html">
+	<div class="modal-header">
+			<h3 class="modal-title">Add doctor</h3>
+		</div>
+		<form class="form-horizontal" name="regForm"  novalidate ng-submit="ok()" >
+			<div class="modal-body">				
+
+				<!-- Firstname form-->
+				<div class="form-group">
+					<label class="form-label col-sm-3" for="username">First name</label>
+					<div class="col-sm-9">
+						<input class="form-control" type="text" name="firstname" id="firstname" placeholder="Firstname"
+								ng-model="newPatient.firstname" ensure-unique="firstname" required/>
+						<div class="error-container" ng-show="regForm.firstname.$dirty && regForm.firstname.$invalid">
+    						<small class="error"
+    							ng-show="regForm.firstname.$error.required">
+    							Firstname required
+    						</small>
+						</div>
+					</div>
+				</div>
+
+				<!-- Lastname form -->
+				<div class="form-group">
+					<label class="form-label col-sm-3" for="inputLastname">Last name</label>
+					<div class="col-sm-9">
+						<input class="form-control" type="text" name="lastname" id="inputLastname" placeholder="Lastname"
+								ng-model="newPatient.lastname" required/>
+		  				<div class="error-container" ng-show="regForm.lastname.$dirty && regForm.lastname.$invalid">
+      						<small class="error"
+      							ng-show="regForm.lastname.$error.required">
+             					Lastname required
+  							</small>
+    					</div>
+					</div>
+				</div>
+
+				<!-- Address form -->
+				<div class="form-group">
+					<label class="form-label col-sm-3" for="inputAddress">Address</label>
+					<div class="col-sm-9">
+						<input class="form-control" type="text" name="address" id="inputAddress" placeholder="Address"
+								ng-model="newPatient.address" required/>
+		  				<div class="error-container" ng-show="regForm.address.$dirty && regForm.address.$invalid">
+      						<small class="error"
+      							ng-show="regForm.address.$error.required">
+             					Address required
+  							</small>
+    					</div>
+					</div>
+				</div>
+
+				<!-- Phone form -->
+				<div class="form-group">
+					<label class="form-label col-sm-3" for="inputPhone">Phone</label>
+					<div class="col-sm-9">
+						<input class="form-control" type="text" name="phone" id="inputPhone" placeholder="Phone"
+								ng-model="newPatient.phone" required/>
+		  				<div class="error-container" ng-show="regForm.phone.$dirty && regForm.phone.$invalid">
+      						<small class="error"
+      							ng-show="regForm.phone.$error.required">
+             					Phone required
+  							</small>
+    					</div>
+					</div>
+				</div>
+
+				<!-- Birthday form -->
+				<div class="form-group">
+					<label class="form-label col-sm-3" for="inputBirthday">Birthday</label>
+					<div class="col-sm-9">
+						<input class="form-control" type="date" name="phone" id="inputBirthday" placeholder="Birthday"
+								ng-model="newPatient.birthday" required/>
+		  				<div class="error-container" ng-show="regForm.birthday.$dirty && regForm.birthday.$invalid">
+      						<small class="error"
+      							ng-show="regForm.birthday.$error.required">
+             					Birthday required
+  							</small>
+    					</div>
+					</div>
+				</div>
+
+				<!-- Email form -->
+				<div class="form-group">
+					<label class="form-label col-sm-3" for="inputEmail">Email</label>
+					<div class="col-sm-9">
+						<input class="form-control" type="email" name="email" id="email" placeholder="Email"
+								ng-model="newPatient.email" ng-minlength=3 ng-maxlength=25 required/>
+				  		<div class="error-container" ng-show="regForm.email.$dirty && regForm.email.$invalid">
+							<small class="error"
+								ng-show="regForm.email.$error.required">
+             					Email required
+      						</small>
+      						<small class="error"
+      							ng-show="regForm.email.$error.email">
+             					That is not a valid email
+							</small>
+    					</div>
+					</div>
+				</div>
+
+				<!-- Pesel form -->
+				<div class="form-group">
+					<label class="form-label col-sm-3" for="inputPesel">Pesel</label>
+					<div class="col-sm-9">
+						<input class="form-control" type="text" name="pesel" id="inputPesel" placeholder="Pesel"
+								ng-model="newPatient.pesel" required/>
+		  				<div class="error-container" ng-show="regForm.pesel.$dirty && regForm.pesel.$invalid">
+      						<small class="error"
+      							ng-show="regForm.pesel.$error.required">
+             					Pesel required
+  							</small>
+    					</div>
+					</div>
+				</div>
+				
+				<!-- Password form -->
+				<div class="form-group">
+					<label class="form-label col-sm-3" for="inputPassword">Password</label>
+					<div class="col-md-9">
+						<input class="form-control" type="password" name="password" id="inputPassword"
+								placeholder="Password" ng-model="newPatient.password" ng-minlength=3 ng-maxlength=25 required/>
+						<div class="error-container" ng-show="regForm.password.$dirty && regForm.password.$invalid">
+						    <small class="error"
+						    	ng-show="regForm.password.$error.required">
+				             	Password required
+					      	</small>
+					      	<small class="error"
+					      		ng-show="regForm.password.$error.minlength">
+	             	 			Your password is required to be at least 3 characters
+					      	</small>
+	    				</div>
+					</div>
+				</div>
+
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" ng-click="cancel()">Cancel</button>
+		       		<button type="submit" class="btn btn-success" ng-disabled="regForm.$invalid" >Register</button>
+				</div>
+			</div>
+		</form>
+</script>
+<div id="page-wrapper">
+	<div class="alert-container">
+		<alert class="alert-frame" ng-repeat="alert in alerts"
+			type="{{alert.type}}" close="alertService.closeAlert($index)">{{alert.msg}}
+		alert</alert>
+	</div>
+	<h3>Patients</h3>
+	<div class="col-md-3 col-md-offset-7">
+			<div class="btn-group col-lg-8">
+				<button class="btn btn-default col-lg-12" type="button"
+					ng-click="open()">Add patient</button>
+			</div>
+	</div>
+	<div class="col-md-2">
+		<div class="btn-group" dropdown is-open="status.isopen">
+			<button type="button" class="btn btn-default dropdown-toggle">
+				Items per page
+				{{pageSize}} <span class="caret"></span>
+			</button>
+			<ul class="dropdown-menu" role="menu">
+				<li><a href=""
+					ng-click="pageSize = 10; status.isopen = !status.isopen;">10</a></li>
+				<li><a href=""
+					ng-click="pageSize = 15; status.isopen = !status.isopen;">15</a></li>
+				<li><a href=""
+					ng-click="pageSize = 25; status.isopen = !status.isopen;">25</a></li>
+				<li><a href=""
+					ng-click="pageSize = 50; status.isopen = !status.isopen;">50</a></li>
+				<li><a href=""
+					ng-click="pageSize = 100; status.isopen = !status.isopen;">100</a></li>
+			</ul>
+		</div>
+	</div>
+	<br> <br> <br>
+	<div class="row">
+		<div class="col-lg-12">
+			<div class="panel panel-default">
+				<table id="calendarTable"
+					class="table table-bordered table-stripped">
+					<tr class="header">
+						<th>#</th>
+						<th>First name</th>
+						<th>Last name</th>
+						<th>Pesel</th>
+						<th>Birthday</th>
+						<th>Email</th>
+						<th>Phone</th>
+						<th>Address</th>
+						<th>Action</th>
+					</tr>
+					<tr ng-repeat="p in patientList | limitTo: pageSize track by $index">
+						<td>{{ $index + 1 + pageSize*(curPage-1)}}</td>
+						<td><span editable-text="p.userData.firstname"
+							onbeforesave="checkFirstname($data)" e-name="name"
+							e-form="rowform" e-required>{{ p.userData.firstname }}</span></td>
+						<td><span editable-text="p.userData.lastname"
+							onbeforesave="checkLastname($data)" e-name="name"
+							e-form="rowform" e-required>{{ p.userData.lastname }}</span></td>
+						<td>{{ p.userData.pesel }}</td>
+						<td>{{ p.userData.birthday | date: 'dd-MM-yyyy'}}</td>
+						<td><span editable-text="p.userData.email"
+							onbeforesave="checkPhone($data)" e-name="name" e-form="rowform"
+							e-required>{{ p.userData.email }}</span></td>
+						<td>{{ p.userData.phone }}</td>
+						<td><span editable-text="p.userData.address"
+							onbeforesave="checkAddress($data)" e-name="name" e-form="rowform"
+							e-required>{{ p.userData.address }}</span></td>
+						<td class="col-lg-4">
+							<form editable-form name="rowform"
+								onbeforesave="editPatient(p.userData)"
+								ng-show="rowform.$visible" class="form-buttons form-inline"
+								shown="inserted == p">
+								<button type="submit" ng-disabled="rowform.$waiting"
+									class="btn btn-primary">Save</button>
+								<button type="button" ng-disabled="rowform.$waiting"
+									class="btn btn-default" ng-click="rowform.$cancel()">Cancel</button>
+							</form>
+							<div ng-show="!rowform.$visible">
+								<button class="btn btn-primary col-lg-8 col-lg-offset-2"
+									data-toogle="modal" type="button" ng-click="rowform.$show()">Edit</button>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+	<pagination total-items="patientList.length" items-per-page="pageSize" ng-model="curPage" 
+		max-size="maxSize" class="pagination-sm" boundary-links="true" ng-show="patientList.length"></pagination>
+</div>

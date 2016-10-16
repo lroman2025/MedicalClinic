@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/security"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/security 
+        http://www.springframework.org/schema/security/spring-security-3.2.xsd 
+        http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd">
+
+	<!-- Root Context: defines shared resources visible to all other web components -->
+	<http create-session="always" use-expressions="true" auto-config="false">
+		<intercept-url pattern="/anonymous*" access="isAnonymous()" />
+		<intercept-url pattern="/login*" access="permitAll" />
+		<intercept-url pattern="/doctor/**" access="hasRole('ROLE_DOCTOR')" />
+		<intercept-url pattern="/admin/**" access="hasRole('ROLE_ADMIN')"/>
+		
+
+		<form-login login-page='/'
+			authentication-success-handler-ref="myAuthenticationSuccessHandler"
+			authentication-failure-url="/?error=true"
+			always-use-default-target="true"/>
+
+		<logout delete-cookies="JSESSIONID" logout-success-url="/"
+			invalidate-session="true" />
+
+		<!-- <remember-me key="uniqueAndSecret" token-validity-seconds="86400" /> -->
+
+		<session-management invalid-session-url="/">
+			<concurrency-control max-sessions="2"
+				expired-url="/" />
+		</session-management>
+	</http>
+	
+	<beans:bean id="myAuthenticationSuccessHandler"
+		class="com.clinic.security.UrlAuthenticationSuccessHandler" />
+		
+	<beans:bean id="userDetailSerrviceImpl" class="com.clinic.service.impl.UserDetailsServiceImpl" />
+	
+	<authentication-manager>
+		<authentication-provider user-service-ref="userDetailSerrviceImpl">
+			<password-encoder hash="md5" />
+		</authentication-provider>
+	</authentication-manager>	
+	
+	<context:component-scan base-package="com.clinic" />
+	<context:annotation-config/>
+	<tx:annotation-driven/>
+
+</beans:beans>

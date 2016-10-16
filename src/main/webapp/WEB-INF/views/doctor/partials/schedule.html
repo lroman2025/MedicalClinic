@@ -1,0 +1,113 @@
+<script type="text/ng-template" id="addHours.html">
+	<div class="modal-header">
+		<h3 class="modal-tittle">Add hours to schedule</h3>
+	</div>
+	<form class="form-horizontal" name="$parent.addHourForm" novalidate>
+		<div class="modal-body col-lg-offset-1">
+			<br>
+			<div class="form-group">
+				<label class="form-label col-sm-3" for="inputDay">Day</label> 
+				<div class="col-sm-8">
+					<p class="input-group">
+						<input 
+							class="form-control" 
+							type="text" 
+							name="day"
+							min-date="minDate" 
+							id="inputDay" 
+							ng-model="newSchedule.day" 
+							ng-required="true"
+							datepicker-popup="{{format}}" 
+							is-open="$parent.openedStart"
+							datepicker-option="dateOptions"
+							close-text="Close" />
+						<span class="input-group-btn">
+							<button class="btn btn-default" type="button" ng-click="openCalendar($event)">
+								<i class="glyphicon glyphicon-calendar"></i>
+							</button>
+						</span>
+					</p>
+
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="form-label col-sm-3" for="inputStartHour">Hour start</label>
+				<div class="col-sm-8">
+					<input 
+						class="form-control" 
+						type="time" 
+						name="startHour" 
+						id="inputStartHour" 
+						ng-model="newSchedule.hourStart" 
+						placeholder="HH:mm:ss"
+						required/>
+				</div>
+			</div>
+			<div class="form-group">
+				<label class="form-label col-sm-3" for="inputStopHour">Hour stop</label>
+				<div class="col-sm-8">
+					<input 
+						class="form-control" 
+						type="time" 
+						name="stopHour" 
+						id="inputStopHour" 
+						ng-model="newSchedule.hourEnd"
+						placeholder="HH:mm:ss" 
+						required/>
+				</div>
+			</div>
+		</div>
+	</form>
+	<div class="modal-footer">
+		<button class="btn btn-primary" ng-click="add(newSchedule)">Add</button>
+		<button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+	</div>
+
+</script>
+
+
+<div id="page-wrapper">
+	<div class="alert-container">
+		<alert class="alert-frame" ng-repeat="alert in alerts"
+			type="{{alert.type}}" close="alertService.closeAlert($index)">{{alert.msg}}</alert>
+	</div>
+	<h3>Schedule</h3>
+	<div class="col-md-3 col-md-offset-9">
+		<div class="btn-toolbar" role="toolbar">
+			<div class="btn-group">
+				<button class="btn btn-default" type="button" ng-click="open()">Add
+					hours to schedule</button>
+			</div>
+		</div>
+	</div>
+	<br> <br> <br>
+	<div class="row">
+		<div class="col-lg-10 col-lg-offset-1">
+			<div class="panel panel-default">
+				<table id="scheduleTable"
+					class="table table-bordered table-stripped">
+					<tr class="header">
+						<th>#</th>
+						<th>Day</th>
+						<th>Hour start</th>
+						<th>Hour stop</th>
+						<th>Action</th>
+					</tr>
+					<tr ng-repeat="s in scheduleList">
+						<td><div class="col-lg-offset-5">{{ $index + 1 }}</div></td>
+						<td><div class="col-lg-offset-4">{{ s.day | date :
+								'dd-MM-yyyy'}}</div></td>
+						<td><div class="col-lg-offset-4">{{ s.hourStart }}</div></td>
+						<td><div class="col-lg-offset-4">{{ s.hourEnd }}</div></td>
+						<td>
+							<div class="button-group ">
+								<button ng-click="deleteSchedule(s.id)" type="button"
+									class="btn btn-primary col-lg-8 col-lg-offset-2">Remove</button>
+							</div>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

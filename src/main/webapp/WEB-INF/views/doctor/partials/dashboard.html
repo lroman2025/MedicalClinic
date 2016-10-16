@@ -1,0 +1,74 @@
+<div id="page-wrapper">
+	<div class="alert-container">
+		<alert class="alert-frame" ng-repeat="alert in alerts"
+			type="{{alert.type}}" close="alertService.close($index)">{{alert.msg}}</alert>
+	</div>
+	<h3>Your data</h3>
+	<br> <br>
+	<div class="row">
+		<div class="col-lg-6 col-lg-offset-3">
+			<form class="form-horizontal" name="editForm" ng-submit="update()"
+				novalidate>
+				<div class="form-group">
+					<lable class="form-lable col-sm-3" for="firstname"><strong>First name</strong></lable>
+					<div class="col-sm-5">
+						<input class="form-control" type="text" name="firstname"
+							placeholder="First name" ng-model="dataList.userData.firstname"
+							ng-required="true" />
+					</div>
+				</div>
+				<div class="form-group">
+					<lable class="form-lable col-sm-3" for="lastname"><strong>Last name</strong></lable>
+					<div class="col-sm-5">
+						<input class="form-control" type="text" name="lastname"
+							placeholder="Last name" ng-model="dataList.userData.lastname"
+							ng-required="true" />
+					</div>
+				</div>
+				<div class="form-group">
+					<lable class="form-lable col-sm-3" for="phone"><strong>Phone</strong></lable>
+					<div class="col-sm-5">
+						<input class="form-control" type="text" name="phone"
+							placeholder="Phone" ng-model="dataList.userData.phone"
+							ng-required="true" />
+					</div>
+				</div>
+				<div class="form-group">
+					<lable class="form-lable col-sm-3" for="adres"><strong>Address</strong></lable>
+					<div class="col-sm-5">
+						<input class="form-control" type="text" name="address"
+							placeholder="Address" ng-model="dataList.userData.address"
+							ng-required="true" />
+					</div>
+				</div>
+				<div class="form-group">
+					<lable class="form-lable col-sm-3" for="birthdate"><strong>Birthdate</strong></lable>
+					<div class="col-sm-5">
+						<input class="form-control"
+							value="{{dataList.userData.birthday | date : 'dd-MMMM-yyyy'}}"
+							readonly></input>
+					</div>
+				</div>
+				<div class="form-group">
+					<lable class="form-lable col-sm-3" for="pesel"><strong>Pesel</strong></lable>
+					<div class="col-sm-5">
+						<input class="form-control" value="{{dataList.userData.pesel}}"
+							readonly></input>
+					</div>
+				</div>
+				<div class="form-group">
+					<lable class="form-lable col-sm-3" for="email"><strong>Email</strong></lable>
+					<div class="col-sm-5">
+						<input class="form-control" value="{{dataList.userData.email}}"
+							readonly></input>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="col-md-5 col-md-offset-3">
+						<button class="btn btn-primary col-sm-12" type="submit">Save</button>
+					</div>
+				</div>
+			</form>
+		</div>
+	</div>
+</div>
